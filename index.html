@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SEMINAR BINGO</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,9 +33,7 @@
       gap: 28px;
     }
 
-    header {
-      text-align: center;
-    }
+    header { text-align: center; }
 
     h1 {
       font-family: 'Bebas Neue', sans-serif;
@@ -83,9 +82,7 @@
       hyphens: auto;
     }
 
-    .cell:active {
-      transform: scale(0.96);
-    }
+    .cell:active { transform: scale(0.96); }
 
     .cell.marked {
       background: #1e1a00;
@@ -105,9 +102,7 @@
 
     .cell.free:active { transform: none; }
 
-    .cell.pop {
-      animation: pop 0.25s ease;
-    }
+    .cell.pop { animation: pop 0.25s ease; }
 
     @keyframes pop {
       0%   { transform: scale(1); }
@@ -154,18 +149,16 @@
   <button class="shuffle-btn" id="shuffleBtn"> Reshuffle</button>
 
   <script>
-    // ── Edit your bingo items here ──────────────────────────────────────────
     const ITEMS = [
       "Abman: 'How should we think about this'",
       "Liang: 'Do you have a sense of'",
-      "<em> Spanish murmurs in the crowd </em>",
+      "<em>Spanish murmurs in the crowd</em>",
       "Foad/Shoshana falls asleep",
       "Clark: 'This might be dumb'",
-      "Kyu: Loudly opens/eats a bag of chips",
-      "Sabia: Opens a second soda can",
-      "Kangoh: Glares at woman",
+      "Kyu: <em>Loudly opens/eats a bag of chips</em>",
+      "Sabia: <em>Opens a second soda can</em>",
+      "Kangoh: <em>Glares at woman</em>",
     ];
-    // ────────────────────────────────────────────────────────────────────────
 
     const board = document.getElementById('board');
     const shuffleBtn = document.getElementById('shuffleBtn');
@@ -179,6 +172,23 @@
       return a;
     }
 
+    function checkWin() {
+      const cells = [...document.querySelectorAll('.cell')];
+      const marked = cells.map(c => c.classList.contains('marked') || c.classList.contains('free'));
+
+      const lines = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+      ];
+
+      const won = lines.some(line => line.every(i => marked[i]));
+
+      if (won) {
+        confetti({ particleCount: 180, spread: 80, origin: { y: 0.5 } });
+      }
+    }
+
     function buildBoard() {
       board.innerHTML = '';
       const picked = shuffle(ITEMS).slice(0, 8);
@@ -188,7 +198,6 @@
         cell.className = 'cell';
 
         if (i === 4) {
-          // Centre free space
           cell.classList.add('free');
           cell.textContent = 'Sabia opens 1 soda can';
         } else {
@@ -198,6 +207,7 @@
             cell.classList.toggle('marked');
             cell.classList.add('pop');
             cell.addEventListener('animationend', () => cell.classList.remove('pop'), { once: true });
+            checkWin();
           });
         }
 
