@@ -194,7 +194,7 @@
           cell.textContent = 'Sabia opens 1 soda can';
         } else {
           const idx = i < 4 ? i : i - 1;
-          cell.textContent = picked[idx];
+          cell.innerHTML = picked[idx];
           cell.addEventListener('click', () => {
             cell.classList.toggle('marked');
             cell.classList.add('pop');
