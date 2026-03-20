@@ -151,37 +151,20 @@
 
   <div class="board" id="board"></div>
 
-  <button class="shuffle-btn" id="shuffleBtn">🔀 Reshuffle</button>
-
-  <footer>tap to mark &nbsp;·&nbsp; reshuffle to reset</footer>
+  <button class="shuffle-btn" id="shuffleBtn"> Reshuffle</button>
 
   <script>
     // ── Edit your bingo items here ──────────────────────────────────────────
     const ITEMS = [
       "Someone says 'circle back'",
-      "Unexpected rain",
-      "Dog interrupts a call",
-      "Wi-Fi drops at worst moment",
-      "Someone mutes themselves by accident",
-      "Running late",
-      "Phone dies in public",
-      "Awkward elevator silence",
-      "Forgot someone's name",
-      "Coffee gets cold",
-      "Meeting could've been an email",
-      "Autocorrect fails",
-      "Someone talks over you",
-      "Lost keys panic",
-      "Traffic on a short trip",
-      "Accidentally reply-all",
-      "Alarm ignored at least once",
-      "Fridge empty at lunch",
-      "'Can everyone see my screen?'",
-      "Stepped in a puddle",
-      "Coworker reheats fish",
-      "Phone notification during silence",
-      "Password reset needed",
-      "Bag is way too heavy",
+      "Sabia: <em> Opens a second soda can </em>",
+      "Abman: 'How should we think about this'",
+      "Kyu: <em> Loudly opens/eats a bag of chips </em>",
+      "Liang: 'Do you have a sense of'",
+      "Kangoh <em> Glares at woman </em>",
+      "<em> Spanish murmurs in the crowd </em>",
+      "Foad/Shoshana falls asleep",
+      "Clark: 'This might be dumb'",
     ];
     // ────────────────────────────────────────────────────────────────────────
 
@@ -208,7 +191,7 @@
         if (i === 4) {
           // Centre free space
           cell.classList.add('free');
-          cell.textContent = '★ FREE ★';
+          cell.textContent = 'Sabia opens 1 soda can';
         } else {
           const idx = i < 4 ? i : i - 1;
           cell.textContent = picked[idx];
